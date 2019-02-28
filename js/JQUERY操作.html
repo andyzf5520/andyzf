@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>冒泡</title>
+    <style type="text/css">
+        #div1 {
+
+            background-color: red;
+            height: 300px;
+            width: 500px;
+            margin: 0 auto;
+
+        }
+
+        #div2 {
+            height: 200px;
+            width: 350px;
+            border: 1px solid rebeccapurple;
+            background-color: blue;
+            margin: 0 auto;
+        }
+
+        #div3 {
+            height: 150px;
+            width: 200px;
+            border: 1px darkorange;
+            background-color: seagreen;
+            margin: 0 auto;
+
+        }
+    </style>
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"> </script>
+    <script type="text/javascript">
+
+        $(function () {
+            //冒泡事件
+            $("#div1 ").bind("click", function (e) {
+                alert("div1点击");
+                e.preventDefault();
+            });
+            $("#div2").bind("click", function (event) {
+                alert("div2点击");
+                event.stopPropagation();
+
+            });
+            $("#div3").bind("click", function (event) {
+                alert("div3点击");
+                // event.stopPropagation();
+
+                return false;
+            });
+            var date = new Date("yyyy-MM-dd");
+            var sib = $("#sex").siblings().each(function (index, element) {
+                console.log(element);
+            });
+            // alert($("#times").val(date.toString().Format('yyyy-MM-hh'))) ;
+            $("#a").hover(function () {
+
+                // alert("Hover事件触发")
+            });
+            //伪类选择之表单选择器
+            $(":input[id=times]").blur(function () {
+                $(":input").css("background-color", "red");
+                alert("111");
+            });
+            alert($("#a").nodeType);
+            //    var  BufferedOutputStream  out;
+
+            // JavaScript HTML DOM 元素操作（节点）
+            var para = document.createElement("p");
+            var node = document.createTextNode("JavaScript HTML DOM 元素操作（节点）");
+            para.appendChild(node);
+
+            var element = $("#div1");
+            element.append(para);
+
+
+            //jquery和js互转格式 jquery对象是一个数组
+            //1 .jquery转js 索引
+            $("#btn").click(function () {
+
+                var div = $("#div5");
+                var newdiv = div[0];
+                var newdiv1 = div.get(0);
+                newdiv1.innerText = 'Jquery转js';
+                newdiv1.style.backgroundColor = "red";//js 操作样式css
+                //js转jquery $()把DOM对象包装起来，就可以获得一个jQuery对象了。$(js对象) 
+                var div2 = document.getElementById("div6");
+                var div2 = $(div2);
+                div2.text("js转Jquery")
+                div2.css({ "backgroundColor": "yellow" }); //jquery 操作样式css
+            });
+
+            // $("#div1").load("js/index.html");
+            $("#btn").css('color', 'red'); //单个和多个设置不同
+
+
+            //动画
+            // var jq= $.noConflict(); //方法会释放对 $ 标识符的控制，这样其他脚本就可以使用它了
+            $("#btnanmia").click(function () {
+                $("#dd").animate({
+                    left: '250px',
+                    opacity: '0.8',
+                    height: '150px',
+                    width: '150px'
+                }, 5000, function () {
+                    //回调函数
+                    $('#btnanmia').text("返回动画");
+                    $('#dd').css({ "width": '50px', 'height': '100px', 'left': '0px', 'opacity': '1.0' });
+                    setTimeout(function () {
+
+                        $('#dd').remove();
+                    }, 3000);
+                });
+            });
+           
+            setInterval(function () {
+                var tim = new Date();
+                tim = tim.toLocaleString().split('/').join('-');
+
+                $('#pp').text(tim);
+            }, 1000);
+            var person = '阿122'; 
+            var person1 = "123Volvo"; //这个可以转换成功
+             $(document.getElementById('#i')).html(parseInt(person,10) + "<br />");//数据类型格式不对 会变NaN 为空未赋值为 Undefined
+            //上面的第二个参数表示进制 
+
+            $("p.intro") //获取p标签中类名为intro的标签
+        });
+
+        $(document).ready(function(){});
+    </script>
+</head>
+
+<body>
+
+    时间：<b id='pp'>111111</b>
+          <i id="i">IIIII</i>
+          <u>UUUUU</u>
+    <div id="div1">
+        div1
+        <div id="div2">
+            div2
+            <div id="div3">div3</div>
+        </div>
+    </div>
+
+    <div id="div5">jquery 转js</div>
+    <div id="div6">js转jquery</div>
+    <div>JavaScript HTML DOM 元素操作（节点）
+        <form enctype="application/x-www-form-urlencoded">
+            多选1 <input type="checkbox" value="111">
+            多选2 <input type="checkbox" value="111"><br>
+            男<input type="radio" name="nan" id="sex">
+            女<input type="radio" name="nan">
+            <select name="friut" id="">
+                <option value="1">苹果</option>
+                <option value="2">香蕉</option>
+                <option value="3">鸭梨</option>
+            </select>
+            <input type="file" name="file" value="选择jar包" />
+            <input type="date" value="2018-06-08" id="times">
+        </form>
+
+        <a href="#https://www.baidu.com" id="a" target="_blank">百度</a>
+        <br>
+        <button id="btn">点击查看js转Jquery</button>
+        <DIV id='dd' style="background-color:rebeccapurple;width: 50px;height: 100px;">
+            <button id='btnanmia'>开始动画</button></DIV>
+        两种转换方式将一个jQuery对象转换成js对象：[index]和.get(index);
+
+        (1)jQuery对象是一个数据对象，可以通过[index]的方法，来得到相应的js对象。
+
+        如：var $v =$("#v") ; //jQuery对象
+
+        var v=$v[0]; //js对象
+
+        alert(v.checked) //检测这个checkbox是否被选中
+
+        (2)jQuery本身提供，通过.get(index)方法，得到相应的js对象
+        如：var $v=$("#v"); //jQuery对象
+        var v=$v.get(0); //js对象
+        alert(v.checked) //检测这个checkbox是否被选中
+        JavaScript分三个部分:
+        * ECMAScript标准:JS的基本的语法
+        * DOM:Document Object Model --->文档对象模型----操作页面的元素
+        * BOM:Browser Object Model----->浏览器对象模型---操作的是浏览器
+        *
+        * DOM: 文档对象模型
+        *
+        * 文档:把一个html文件看成是一个文档,由于万物皆对象,所以把这个文档看成是一个对象
+        * XML文件也可以看成是一个文档
+        *
+        * HTML:展示信息,展示数据的
+        * XML:侧重于存储数据
+        * html文件看成是一个文档,那么这个文档看成是一个对象,文档中的所有的标签都可以看成是一个对象
+        *
+        * 页面中的每个标签,都是一个元素(element),每个元素都可以看成是一个对象
+        * 标签可以嵌套,标签中有标签,元素中有元素
+        *
+        * html页面中都有一个根标签--html--也叫根元素
+        *
+        * 页面中的有一个根元素(标签--html),里面有很多的元素(有很多的标签,有很多的对象)
+        *
+        * 文档:一个页面就是一个文档
+        *
+        * 元素(element):页面中的所有的标签都是元素,元素可以看成是对象
+        *
+        * 节点(node):页面中所有的内容都是节点:标签,属性,文本
+        * root:根
+        *
+        *
+        * 页面就是文档--document,文档中有根元素:html
+        * html--->head
+        *------>body--->其他的标签
+        *
+        * 由文档及文档中的所有的元素(标签)组成的一个树形结构图,叫树状图(DOM树)
+        *
+        * */
+    </div>
+
+</body>
+
+</html>
